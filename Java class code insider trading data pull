@@ -1,0 +1,141 @@
+import java.net.*;
+import java.io.*;
+import java.util.Date;
+
+public class InsiderTradingParse{
+  //S&P 500 as ticker symbols in a string array//
+  String[] stocks = {"MMM","ABT","ABBV","ACN","ACE","ACT","ADBE","ADT","AES","AET","AMG","AFL","A","GAS","APD","ARG","AKAM","AA","ALXN","ALLE","AGN","ADS","ALL","ALTR","MO","AMZN","AEE","AEP","AXP","AIG","AMT","AMP","ABC","AME","AMGN","APH","APC","ADI","AON","APA","AIV","AAPL","AMAT","ADM","AIZ","T","ADSK","ADP","AN","AZO","AVGO","AVB","AVY","AVP","BHI","BLL","BAC","BK","BCR","BAX","BBT","BDX","BBBY","BMS","BRK-B","BBY","BIIB","BLK","BA","BWA","BXP","BSX","BMY","BRCM","BF-B","CHRW","CA","CVC","COG","CAM","CPB","COF","CAH","CFN","KMX","CCL","CAT","CBG","CBS","CELG","CNP","CTL","CERN","CF","CHK","CVX","CMG","CB","CI","XEC","CINF","CTAS","CSCO","C","CTXS","CLX","CME","CMS","COH","KO","CCE","CTSH","CL","CMCSA","CMA","CSC","CAG","COP","CNX","ED","STZ","GLW","COST","COV","CCI","CSX","CMI","CVS","DHI","DHR","DRI","DVA","DE","DLPH","DAL","DNR","XRAY","DVN","DO","DTV","DFS","DISCA","DG","DLTR","D","DOV","DOW","DPS","DTE","DD","DUK","DNB","ETFC","EMN","ETN","EBAY","ECL","EIX","EW","EA","EMC","EMR","ESV","ETR","EOG","EQT","EFX","EQR","ESS","EL","EXC","EXPE","EXPD","ESRX","XOM","FFIV","FB","FDO","FAST","FDX","FIS","FITB","FSLR","FE","FISV","FLIR","FLS","FLR","FMC","FTI","F","FOSL","BEN","FCX","FTR","GME","GCI","GPS","GRMN","GM","GD","GE","GGP","GIS","GPC","GNW","GILD","GS","GT","GOOG","GWW","HAL","HOG","HAR","HRS","HIG","HAS","HCP","HCN","HP","HSY","HES","HPQ","HD","HON","HRL","HSP","HST","HCBK","HUM","HBAN","ITW","IR","TEG","INTC","ICE","IBM","IFF","IP","IPG","INTU","ISRG","IVZ","IRM","JBL","JEC","JNJ","JCI","JPM","JNPR","KSU","K","GMCR","KEY","KMB","KIM","KMI","KLAC","KSS","KRFT","KR","LB","LLL","LH","LRCX","LM","LEG","LEN","LUK","LLY","LNC","LLTC","LMT","L","LO","LOW","LYB","MTB","MAC","M","MNK","MRO","MPC","MAR","MMC","MLM","MAS","MA","MAT","MKC","MCD","MHFI","MCK","MJN","MWV","MDT","MRK","MET","KORS","MCHP","MU","MSFT","MHK","TAP","MDLZ","MON","MNST","MCO","MS","MOS","MSI","MUR","MYL","NBR","NDAQ","NOV","NAVI","NTAP","NFLX","NWL","NFX","NEM","NWSA","NEE","NLSN","NKE","NI","NE","NBL","JWN","NSC","NU","NTRS","NOC","NRG","NUE","NVDA","ORLY","OXY","OMC","OKE","ORCL","OI","PCAR","PLL","PH","PDCO","PAYX","PNR","PBCT","POM","PEP","PKI","PRGO","PETM","PFE","PCG","PM","PSX","PNW","PXD","PBI","PCL","PNC","PPG","PPL","PX","PCP","PCLN","PFG","PG","PGR","PLD","PRU","PSA","PEG","PHM","PVH","QEP","QCOM","PWR","DGX","RL","RRC","RTN","RHT","REGN","RF","RSG","RAI","RHI","ROK","COL","ROP","ROST","R","SWY","CRM","SNDK","SCG","SLB","SCHW","SNI","STX","SEE","SRE","SHW","SIAL","SPG","SJM","SNA","SO","LUV","SWN","SE","STJ","SWK","SPLS","SBUX","HOT","STT","SRCL","SYK","STI","SYMC","SYY","TROW","TGT","TEL","TE","THC","TDC","TSO","TXN","TXT","TMO","TIF","TWX","TWC","TJX","TMK","TSS","TSCO","RIG","TRV","TRIP","FOXA","TSN","USB","UA","UNP","UPS","URI","UTX","UNH","UHS","UNM","URBN","VLO","VAR","VTR","VRSN","VZ","VRTX","VFC","VIAB","V","VNO","VMC","WMT","WAG","DIS","WM","WAT","WLP","WFC","WDC","WU","WY","WHR","WFM","WMB","WIN","WEC","WYN","WYNN","XEL","XRX","XLNX","XL","XYL","YHOO","YUM","ZMH","ZION","ZTS"};
+  URI[] uris = new URI[stocks.length];
+  String[] websites = null;
+  String date = "";
+  
+  //Constructor takes strings and pushes them to a browser. Not terribly useful Website count determines how many tabs to open//
+  public InsiderTradingParse(int websiteCount){
+     
+    
+    for(int i =0; i<stocks.length; i++){
+      try{
+        uris[i] = new URI("http://finance.yahoo.com/q/it?s=" + stocks[i] + "+Insider+Transactions");
+        websites[i] = new String("http://finance.yahoo.com/q/it?s=" + stocks[i] + "+Insider+Transactions");
+      }
+      catch(URISyntaxException a){}
+      
+    }
+    
+    for(int i =0; i<websiteCount; i++){ 
+      try{
+        java.awt.Desktop.getDesktop().browse(uris[i]); 
+      }
+      catch(IOException b){}
+      
+    }
+  }
+  
+  
+  //This code returns a string representation of a page. You should be able to run a loop with this and the websites String[] abocve.//
+  
+  public static String getPage(String urlString){
+    String result = "";
+    //Access the page
+    try {
+      // Create a URL for the desired page
+      URL url = new URL(urlString);
+      // Read all the text returned by the server
+      BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+      String str;
+      while ((str = in.readLine()) != null) {
+        // str is one line of text; readLine() strips the newline character(s)
+        result += str;
+      }
+      in.close();             
+    } catch (MalformedURLException e) {
+    } catch (IOException e) {
+    }          
+  }
+  
+  
+ /* public static String findFirstInstanceOf(String websiteData){
+    //This code, based on todays date, will find if todays date in yahoo finance format exists on the page//
+    Date a = new Date();
+    String month = "null"; 
+    String day = "" + a.getDate();
+    String year ="" + (a.getYear()+1900);
+    
+    switch(a.getMonth()){
+      case 0:
+        month = "Jan";
+        break;
+      case 1:
+        month = "Feb";
+        break;
+      case 2:
+        month = "Mar";
+        break;
+      case 3:
+        month = "Apr";
+        break;
+      case 4:
+        month = "May";
+        break;
+      case 5:
+        month = "Jun";
+        break;
+      case 6:
+        month = "Jul";
+        break;
+      case 7:
+        month = "Aug";
+        break;
+      case 8:
+        month = "Sep";
+        break;
+      case 9:
+        month = "Oct";
+        break;
+      case 10:
+        month = "Nov";
+        break;
+      case 11:
+        month = "Dec";
+        break;
+    }
+    date = month + " " + day + ", " + year;
+    
+    String findStr = date;
+    int lastIndex = 0;
+    int count =0;
+    //This loop is simply finding the amount of times the date sequence, as determined above, appears on Yahoo finance. If it only appears once//
+    //then we can ignore it because the date we access the page is in the html text//
+    while(lastIndex != -1){
+      
+      lastIndex = websiteData.indexOf(findStr,lastIndex);
+      
+      if( lastIndex != -1){
+        count ++;
+        lastIndex+=findStr.length();
+      }
+    }
+    //Essentially, a less than 2 count means their are no recent transactions//
+    if( count < 2 ){
+      return "No Recent Data";
+    }
+    
+    
+    else{
+      //This is where regex and stuff are needed. The HTML string representation of the website, as per viewing it in a word document
+      //always has the following syntax: < ***** >. The ***** must have charachters in it- it CAN NOT be blank. Blank = NO. We need the 
+      //first 5 pattern matches of the second and onward match of the date string above. The first date string match is simply the website
+      //telling you today's date- which is pointless. Once we have extracted this data, we can then write simple code to extract and weight it later.
+      Stringbuilder a = new StringBuilder("");
+      while(count > 1 ){
+      count --;
+      websiteData.indexOf(
+    
+    
+  }
+  
+}
+/*
+
+
+//}
