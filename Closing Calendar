@@ -1,0 +1,63 @@
+import java.util.Date;
+
+public class ClosingCalendar{
+  boolean runOptimize = false;
+  
+  public ClosingCalendar(){
+    //This pulls todays date//
+    Date today = new Date();
+    
+  //These series of if statements detect if the current date means that tomorrow, the exchange will be closed//
+    if(today.getDay() == 6 || today.getDay() == 5){
+      runOptimize = true;
+    }
+    
+    if((today.getYear() == 2014 || today.getYear() == 2015 || today.getYear() == 2016) && today.getDate() == 31 && today.getMonth() == 11){
+      runOptimize = false;
+    }
+    
+    if(today.getYear() == 2015 && 
+       (
+        (today.getDate() == 18 && today.getMonth() == 0) ||
+        (today.getDate() == 15 && today.getMonth() == 1) ||
+        (today.getDate() == 2 && today.getMonth() == 3) ||
+        (today.getDate() == 24 && today.getMonth() == 4) ||
+        (today.getDate() == 2 && today.getMonth() == 6) ||
+        (today.getDate() == 6 && today.getMonth() == 8) 
+       )){
+      runOptimize = true;
+    }
+    
+    if(today.getYear() == 2016 && 
+       (
+        (today.getDate() == 17 && today.getMonth() == 0) ||
+        (today.getDate() == 14 && today.getMonth() == 1) ||
+        (today.getDate() == 24 && today.getMonth() == 2) ||
+        (today.getDate() == 29 && today.getMonth() == 4) ||
+        (today.getDate() == 4 && today.getMonth() == 8) 
+       )){
+      runOptimize = true;
+    }
+    
+    if(today.getYear() == 2017 && 
+       (
+        (today.getDate() == 15 && today.getMonth() == 0) ||
+        (today.getDate() == 16 && today.getMonth() == 1) ||
+        (today.getDate() == 13 && today.getMonth() == 3) ||
+        (today.getDate() == 28 && today.getMonth() == 4) ||
+        (today.getDate() == 3 && today.getMonth() == 6) ||
+        (today.getDate() == 3 && today.getMonth() == 8) ||
+        (today.getDate() == 24 && today.getMonth() == 11)
+       )){
+      runOptimize = true;
+    }
+    
+    if(runOptimize){
+      System.out.print("Optimize \n");
+    }
+    else{
+      System.out.print("Regular Analysis \n" );
+    }
+  }
+}
+   
