@@ -1,0 +1,24 @@
+public class ExponentialMovingAverage{
+  //These store the simple and exponential moving average values//
+  double SMA = 0.0;
+  double EMA = 0.0;
+  
+  //This requires 10 days of historical data to calculate. Uploading this requires access to the closing price
+  //of a stock for the last 10 days//
+  public ExponentialMovingAverage(double[] tenStockQuotes,double eMAPreviousDay){
+    for( double number: tenStockQuotes){
+      SMA += number;
+      SMA = SMA/10;
+    }
+    
+    double multiplier = 2/(11);
+    
+    EMA =
+      (tenStockQuotes[9] - eMAPreviousDay)*multiplier + eMAPreviousDay;
+    
+  }
+}
+      
+    
+    
+    
